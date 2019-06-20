@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +5,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<Center><form method= "GET" action="borrow">
+	<input type="submit" value="borrow"/>
+</form><t>
+<form method= "POST" action="return">
+  	<input type="submit" value="return"/>
+</form></t></Center>
 </body>
 </html>
