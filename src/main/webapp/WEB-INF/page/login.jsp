@@ -49,7 +49,7 @@ to register.
   placeholder="enter your roll no."class="form-control"/> <br>
   		</div>
    <div class="form-group">
-   <input type="text" name="userDob" 
+   <input type="date" name="userDob" 
   		placeholder="enter your DOB"class="form-control"/><br>
   		</div>
   		 <input type="submit" value="save"/><br>
