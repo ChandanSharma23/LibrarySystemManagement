@@ -1,14 +1,13 @@
 package com.libs.sys;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import com.libs.sys.HibernateUtil.*;
+import com.libs.sys.Dao.UserDao;
+import com.libs.sys.Dao.impl.UserDaoimpl;
 
 public class test {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-	
+	UserDao dao = new UserDaoimpl();
+	System.out.println(dao.fetchUserbyID(1));
 	}
 
 }
