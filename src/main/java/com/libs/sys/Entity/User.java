@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="user")
@@ -29,33 +31,49 @@ public class User {
     public User() {
 		
 	}
-	public int getID() {
-		return id;
-	}
+	
+	
 	public int getId() {
 		return id;
 	}
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
 	public String getName() {
 		return name;
 	}
+
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
 	public int getRoll() {
 		return roll;
 	}
+
+
 	public void setRoll(int roll) {
 		this.roll = roll;
 	}
+
+
 	public String getPassword() {
 		return password;
 	}
+
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+	@JsonIgnore
 	public User(int id, String name, int roll, String password) {
 		super();
 		this.id = id;

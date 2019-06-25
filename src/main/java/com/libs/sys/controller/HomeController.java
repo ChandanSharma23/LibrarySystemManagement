@@ -6,11 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.libs.sys.Entity.User;
 import com.libs.sys.Service.UserService;
-import java.util.Date;
 
 
 @Controller
@@ -66,5 +65,12 @@ public class HomeController {
 	@RequestMapping(value="/return")
 	public String getHomePage3() {
     return "return";
+	}
+	
+	@RequestMapping(value="/userDetails")
+	@ResponseBody
+	public User getUserDetails() {
+		User user =userLoggedIn;
+		return user;
 	}
 }
