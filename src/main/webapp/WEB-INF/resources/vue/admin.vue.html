@@ -1,0 +1,177 @@
+<style>
+#table {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 80%;
+}
+
+#table td, #customers th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#table tr:hover {
+	background-color: #ddd;
+}
+
+#table th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: lightslategray;
+	color: white;
+}
+</style>
+
+<div>
+	<div>
+		<button data-toggle="modal" data-target="#myModal"
+			style="margin-left: 200px;"
+			@click="isNewBook = true, showBookModal = true">Add Book</button>
+
+		<table id="table" style="margin-left: 100px; margin-top: 10px;">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Author</th>
+					<th>Publisher</th>
+					<th>Count</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="row in rows">
+					<td>{{row.name}}</td>
+					<td>{{row.author}}</td>
+					<td>{{row.publisher}}</td>
+					<td>{{row.copiesOwned}}</td>
+					<td data-toggle="modal" data-target="#myModal"
+						@click="temprow=row,showBookModal = true"><i
+						style='font-size: 24px' class='fas'>&#xf044;</i></td>
+					<td @click="deleteBook(row.id)"><i style='font-size: 24px'
+						class='far'>&#xf2ed;</i></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<modal v-if="showBookModal" :dismissible="false"
+		:title="isNewBook?'Add New Book':'Update Book'">
+	<div>
+		Name: <input type="text" name="name" v-model="temprow.name"
+			
+						:disabled="!isNewBook" > <br>
+		Author <input type="text" name="author" v-model="temprow.author"
+		 :disabled="!isNewBook"> <br>
+		Publisher <input type="text" name="publisher"
+			v-model="temprow.publisher"  :disabled="!isNewBook">
+		Count <input type="text" name="copiesOwned"
+			v-model="temprow.copiesOwned">
+	</div>
+	<div slot="footer">
+		<button @click="isNewBook = false;showBookModal = false">back</button>
+		<button @click="updateBook();showBookModal = false">Save</button>
+	</div>
+	</modal>
+	<modal v-if="res" title="error occured" :dismissible="false">
+	<p>{{res}}</p>
+	<div slot="footer">
+		<button @click="res = null">back</button>
+	</div>
+	</modal>
+
+</div>
+
+<script>
+loadVueComponent('modal');
+window['admin'] = {
+		
+		data: function(){
+		return{
+			rows : null,
+			temprow: {
+				id:null,
+				name: null,
+				author: null,
+				publisher: null,
+				copiesOwned: null
+			},
+			isNewBook: false,
+			res: null,
+			showBookModal:false
+			
+		}
+		  },
+	created: function() {
+		debugger;
+			this.loadBooks();
+		
+	},
+	methods:{
+		revert: function(){
+			this.temprow = {
+				id:null,
+				name: null,
+				author: null,
+				publisher: null,
+				copiesOwned: null
+			};
+			this.res= null;
+		},
+		updateBook: function(){
+			debugger;
+			var book = this.temprow;
+		 this.$api({
+				url:"updateBooks?isNewBook=" + this.isNewBook,
+				data: book,
+				success: function(res){
+					console.log(res);
+					console.log("success");
+					this.loadBooks();
+					},
+				error: function(res){
+					this.res = "error while saving new Book!! book already exists";
+					 this.isNewBook = true;
+					console.log(res.getResponseHeader());
+				}
+			});
+		
+			 this.isNewBook = false;
+			 this.revert();
+			 
+			 
+		},
+		deleteBook: function(id){
+			 this.$api({
+					url:"deleteBook?id="+id,
+					success: function(res){
+						console.log("success");
+					},
+					error: function(res){
+						console.log(res.getResponseHeader());
+					}
+				});
+			
+			 this.loadBooks();
+			 
+			},
+			loadBooks: function(){
+				this.$api({
+					url:"/books",
+					success: function(books){
+						this.rows =books;
+					}
+				})
+			}
+	}
+}
+			
+			
+
+</script>

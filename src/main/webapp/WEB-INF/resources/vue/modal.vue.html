@@ -1,0 +1,91 @@
+<style>
+  .vcp-modal .modal-body {
+    max-height: calc(100vh - 210px);
+    overflow: auto;
+  }
+
+  .vcp-modal {
+    display: block !important;
+    background: rgba(0, 0, 0, 0.15);
+  }
+</style>
+
+<div class="modal vcp-modal"
+     @click="checkDismissModalEvent"
+     @keydown.27="dismissible && $emit('close')">
+  <div class="modal-dialog" :class="modalSize">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">
+          <slot name="header">{{title}}</slot>
+        </h4>
+      </div>
+
+      <div class="modal-body" ref="body">
+        <slot></slot>
+      </div>
+
+      <div class="modal-footer" v-if="$slots.footer || dismissible">
+        <slot name="footer">
+          <a @click="$emit('close')"
+             :style="{float: (closePosition === 'left' ? 'left' : 'right')}"
+             class="btn btn-default" v-if="dismissible">{{closeLabel}}</a>
+        </slot>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window["modal"] = {
+    require: {
+      VueComponentDomHelper: 'vue-component-dom-helper.js'
+    },
+    props: {
+      title: String,
+      size: String,
+      dismissible: {
+        type: Boolean,
+        default: true
+      },
+      closeLabel: {
+        type: String,
+        default: "Back"
+      },
+      closePosition: {
+        type: String,
+        default: "right"
+      }
+    },
+    mounted: function () {
+      this.$el.focus();
+      this.open();
+    },
+    methods: {
+      close: function () {
+        this.$emit("close");
+      },
+      open: function () {
+        this.$emit("open");
+        var firstInput = $(this.$refs.body).find("input,textarea,select")[0];
+        if (firstInput) {
+          firstInput.focus();
+        }
+      },
+      checkDismissModalEvent: function ($event) {
+        if (this.dismissible) {
+          if (VueComponentDomHelper.closest($event.target, ".modal-content") === null) {
+            this.$emit("close");
+          }
+        }
+      }
+    },
+    computed: {
+      modalSize: function () {
+        if (this.size === 'large') {
+          return "modal-lg";
+        }
+      }
+    }
+  };
+</script>

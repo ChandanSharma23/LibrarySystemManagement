@@ -73,4 +73,5 @@ public class HomeController {
 		User user =userLoggedIn;
 		return user;
 	}
+	
 }
