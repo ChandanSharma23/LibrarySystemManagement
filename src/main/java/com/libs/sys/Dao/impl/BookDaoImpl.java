@@ -64,7 +64,7 @@ public class BookDaoImpl implements BookDao {
 		try {
 			session.beginTransaction();
 		list = session.createQuery("from Book", Book.class).list();
-		
+		System.out.println(list.size());
 		
 		session.getTransaction().commit();
 	}
@@ -147,11 +147,17 @@ public class BookDaoImpl implements BookDao {
 		List<Book> list = null;
 		try {
 			session.beginTransaction();
-			list= session.createCriteria(Book.class
-					).add(Restrictions.like("Name", "%"+query+"%"))
-					.list();
+			/*
+			 * list= session.createCriteria(Book.class ).add(Restrictions.like("Name",
+			 * "%"+query+"%")) .list();
+			 */
+			Query<Book> q = session.createQuery("from Book where name like :n");
+			q.setString("n", '%'+query+'%');
 			
-		System.out.println(" book...");
+			
+			list= q.getResultList();
+			
+		System.out.println(" book..." + list.size());
 		session.getTransaction().commit();
 	}
 		catch(Exception ex) {

@@ -1,0 +1,100 @@
+<style>
+#table {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 80%;
+}
+
+#table td, #customers th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#table tr:hover {
+	background-color: #ddd;
+}
+
+#table th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: lightslategray;
+	color: white;
+}
+</style>
+<div>
+<div>
+	<h3>You can Issue Your Books here</h3>
+	Enter Name of Book<input type="text" v-model="query"/>
+	<button @click="searchBooks" >Search</button>
+	
+	
+</div>
+<div v-if="books">
+	<div v-if="books.length>0">
+		<table id="table" style="margin-left: 100px; margin-top: 10px;">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Author</th>
+					<th>Publisher</th>
+					<th>Availability</th>
+					<th>Action</th>
+				
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="row in books">
+					<td>{{row.name}}</td>
+					<td>{{row.author}}</td>
+					<td>{{row.publisher}}</td>
+					<td>{{row.copiesOwned-row.copiesIssued}}</td>
+					<td><button :disabled="(row.copiesOwned-row.copiesIssued) == 0">Borrow</button></td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+<div v-else>
+
+NO BOOKS FOUND
+</div>
+</div>
+</div>
+<script>
+window['borrow'] = {
+		data: function(){
+			return{
+				query: null,
+				books: null
+				}
+			},
+			created: function() {
+		
+			},
+			methods:{
+			searchBooks: function(){
+				 this.$api({
+						url:"searchbooks?query=" + this.query,
+						success: function(res){
+							this.books = res;
+							console.log("success");
+							
+							},
+						error: function(res){
+							console.log(res);
+							console.log("error");
+						}
+					});
+			}
+			}
+			
+			
+			}
+			
+
+</script>

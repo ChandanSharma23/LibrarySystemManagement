@@ -26,7 +26,7 @@
 
 <div class="main">
 <div>
-<button @click="switchUI('dashboard')" target=>Borrow</button>
+<button @click="switchUI('borrow')" target=>Borrow</button>
 <button @click="location.href='${pageContext.request.contextPath}/logout'" >Logout</button>
 <button @click="switchUI('admin')" >add or delete books</button>
 </div>
@@ -42,9 +42,9 @@ Vue.use(Vuetils);
 			el: ".main",
 			router: new VueRouter({
 					routes: [{
-						name: 'dashboard',
+						name: 'borrow',
 						path: '/borrow',
-						component: loadVueComponent("dashboard")
+						component: loadVueComponent("borrow")
 						},
 						{
 							name: 'admin',

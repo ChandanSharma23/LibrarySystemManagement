@@ -58,10 +58,7 @@ public class HomeController {
 	    return "login";
 	}
 	
-	@RequestMapping(value="/borrow")
-	public String getHomePage2() {
-    return "borrow";
-	}
+	
 	@RequestMapping(value="/return")
 	public String getHomePage3() {
     return "return";
