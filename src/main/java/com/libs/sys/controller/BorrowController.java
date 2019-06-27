@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.libs.sys.Entity.Book;
 import com.libs.sys.Service.BookService;
+import com.libs.sys.Service.RecordService;
 
 @Controller
 public class BorrowController {
@@ -19,6 +20,7 @@ public class BorrowController {
 	@Autowired
 	@Qualifier("bookServiceImpl")
 	BookService bookService;
+
 	
 	
 	@RequestMapping(value="/searchbooks")
@@ -28,5 +30,6 @@ public class BorrowController {
 		return bookService.searchBook(query);
 		
 	}
-
+	
+	
 }

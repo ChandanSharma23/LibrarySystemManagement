@@ -48,9 +48,6 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> searchBook(String query) {
 		// TODO Auto-generated method stub
-		
-		
-		
 		return bookdao.searchBook(query);
 	}
 
@@ -61,6 +58,14 @@ public class BookServiceImpl implements BookService {
 			throw new RuntimeException("book already exists");
 		}
 		return null;
+	}
+
+
+	@Override
+	public void increaseCount(int bookID) {
+		// TODO Auto-generated method stub
+		
+		bookdao.increaseCount(bookID);
 	}
 
 }

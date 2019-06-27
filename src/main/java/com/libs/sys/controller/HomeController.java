@@ -1,5 +1,7 @@
 package com.libs.sys.controller;
 
+import java.io.IOException;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +10,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.libs.sys.Entity.Record;
 import com.libs.sys.Entity.User;
+
 import com.libs.sys.Model.UserBookDetails;
+
+import com.libs.sys.Service.BookService;
+
 import com.libs.sys.Service.RecordService;
 import com.libs.sys.Service.UserService;
 
@@ -21,6 +29,12 @@ public class HomeController {
 	@Autowired
 	@Qualifier("userServiceimpl")
 	UserService userService;
+	
+	@Autowired
+
+	
+	@Qualifier("bookServiceImpl")
+	BookService bookService;
 	
 	@Autowired
 	@Qualifier("recordServiceImpl")
@@ -92,5 +106,38 @@ public class HomeController {
 		int i =userLoggedIn.getId();
 		return recordService.getUserDetails(i);
 	}
+	
+
+	@RequestMapping(value="/issuebook")
+	@ResponseBody
+	public void issueBook(@RequestParam int bookID) throws IOException {
+		System.out.println(bookID);
+		bookService.increaseCount( bookID);
+		System.out.println(userLoggedIn.getId());
+		recordService.addRecord(bookID,userLoggedIn.getId());
+	}
+	
+	@RequestMapping(value="/loadReturns")
+	@ResponseBody
+	public List<UserBookDetails> loadreturnres() throws IOException {
+		System.out.println("gdgfhfhfj");
+		return recordService.getBooksTobeReturned();
+	}
+	
+	@RequestMapping(value="/loadIssue")
+	@ResponseBody
+	public List<UserBookDetails> loadIssueres() throws IOException {
+		System.out.println("gdgfhfhfj");
+		return recordService.getBookstoBeIssued();
+	}
+	
+	@RequestMapping(value="/acceptReq")
+	@ResponseBody
+	public void acceptRequests(@RequestParam int buid) throws IOException {
+		System.out.println("Request Accepted");
+		recordService.acceptRequest(buid);
+		
+	}
+
 	
 }

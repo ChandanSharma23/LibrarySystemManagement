@@ -1,0 +1,101 @@
+<style>
+#table {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 80%;
+}
+
+#table td, #customers th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#table tr:hover {
+	background-color: #ddd;
+}
+
+#table th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: lightslategray;
+	color: white;
+}
+</style>
+
+
+
+
+<div>
+{{rows}}
+
+		<table id="table" style="margin-left: 100px; margin-top: 10px;">
+			<thead>
+				<tr>
+					<th>Student Name</th>
+					<th>Roll No</th>
+					<th>Book Name</th>
+					<th>Author</th>
+					<th>Publisher</th>
+					
+					<th>Action</th>
+					<
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="row in rows">
+					<td>{{row.userName}}</td>
+					<td>{{row.rollNumber}}</td>
+					<td>{{row.bookName}}</td>
+					<td>{{row.author}}</td>
+					<td>{{row.publisher}}</td>
+					<td><button @click = "acceptReq(row.buid)">Issued  </button></td> 
+				</tr>
+			</tbody>
+		</table>
+
+
+
+
+
+</div>
+<script>
+window['issue'] = {
+		data: function(){
+			return{
+				rows: null
+				
+			}
+			},
+	created: function() {
+		this.loadIssueReq();
+	},
+	methods:{
+		loadIssueReq: function(){
+			
+				this.$api({
+					url:"/loadIssue",
+					success: function(res){
+						 this.rows =res; 
+					}
+				})
+		},
+		acceptReq: function(buid){
+			
+			this.$api({
+				url:"/acceptReq?buid=" + buid,
+				success: function(res){
+					 this.rows =res; 
+				}
+			})
+			
+			
+		}
+		
+	}
+}
+</script>

@@ -200,4 +200,47 @@ public class BookDaoImpl implements BookDao {
 		return b;
 	}
 
+
+
+
+	@Override
+	public void increaseCount(int bookID) {
+		// TODO Auto-generated method stub
+		
+		Session session = HibernateUtil.getSF().openSession();
+		Book b = null;
+		try {
+			session.beginTransaction();
+			System.out.println("Getting  the book...");
+		
+		Query q = session.createQuery("from Book where id=:n");
+			q.setInteger("n", bookID);
+		
+			b= (Book)q.getSingleResult();
+			
+			b.setCopiesIssued(b.getCopiesIssued()+1);
+			session.update(b);
+			
+			session.getTransaction().commit();
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+			session.getTransaction().rollback();
+		}
+		finally {
+			session.close();
+		}
+		
+
+		
+	}
+
+
+	@Override
+	public Book getBookById(int bookID) {
+		// TODO Auto-generated method stub
+		
+		return null;
+	}
+
 }

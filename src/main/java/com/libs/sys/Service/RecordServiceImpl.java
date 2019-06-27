@@ -18,11 +18,6 @@ public class RecordServiceImpl implements RecordService {
 	RecordDao recordDao;
 	
 
-	@Override
-	public void addRecord(Record record) {
-		// TODO Auto-generated method stub
-           recordDao.addRecord(record);
-	}
 
 	@Override
 	public Record updateRecord(Record record) {
@@ -37,8 +32,36 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 	@Override
+
 	public List<UserBookDetails> getUserDetails(int id) {
 		return recordDao.getUserDetails(id);
+	}
+
+	public void addRecord(int bookID, int id) {
+		// TODO Auto-generated method stub
+		recordDao.addRecord(bookID,id);
+		
+		
+	}
+
+	@Override
+	public List<UserBookDetails> getBooksTobeReturned() {
+		// TODO Auto-generated method stub
+		return recordDao.getBooksTobeReturned();
+	}
+
+	@Override
+	public List<UserBookDetails> getBookstoBeIssued() {
+		// TODO Auto-generated method stub
+		return recordDao.getBooksTobeIssued();
+
+	}
+
+	@Override
+	public void acceptRequest(int buid) {
+		// TODO Auto-generated method stub
+		recordDao.acceptRequest(buid);
+		
 		
 	}
 

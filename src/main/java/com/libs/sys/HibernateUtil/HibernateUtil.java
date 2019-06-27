@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.libs.sys.Entity.Book;
+import com.libs.sys.Entity.Record;
 import com.libs.sys.Entity.User;
 
 public class HibernateUtil 
@@ -18,6 +19,7 @@ public class HibernateUtil
 						.configure("hibernate.cfg.xml")
 						.addAnnotatedClass(User.class)
 						.addAnnotatedClass(Book.class)
+						.addAnnotatedClass(Record.class)
 						.buildSessionFactory();
 				  }catch(Exception e) {
 				System.out.println(e);

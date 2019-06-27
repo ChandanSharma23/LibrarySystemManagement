@@ -24,5 +24,7 @@ public interface BookService {
 	public List<Book> searchBook(String query);
 
 	public Book getBook(String name, String author, String publisher)throws RuntimeException;
+
+	public void increaseCount(int bookID);
 	
 }
