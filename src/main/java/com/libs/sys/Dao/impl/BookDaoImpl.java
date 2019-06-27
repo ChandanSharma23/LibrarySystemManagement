@@ -2,12 +2,9 @@ package com.libs.sys.Dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.libs.sys.Entity.Book;
@@ -140,7 +137,7 @@ public class BookDaoImpl implements BookDao {
 
 
 	@Override
-	public List<Book> searchBook(String query) {
+	public List<Book> searchBook(String query, List<Integer> booksOwned) {
 		Session session = HibernateUtil.getSF().openSession();
 		System.out.println("Searching the book...");
 	
@@ -152,8 +149,9 @@ public class BookDaoImpl implements BookDao {
 			 * list= session.createCriteria(Book.class ).add(Restrictions.like("Name",
 			 * "%"+query+"%")) .list();
 			 */
-			Query<Book> q = session.createQuery("from Book where name like :n");
+			Query<Book> q = session.createQuery("from Book where name like :n and bookid not in :ids");
 			q.setString("n", '%'+query+'%');
+			q.setParameter("ids",booksOwned);
 			
 			
 			list= q.getResultList();

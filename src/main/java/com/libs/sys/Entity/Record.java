@@ -37,11 +37,7 @@ public class Record {
 
 	@Column(name="Return_request")
 	private String returnRequest;
-	
-	
 
-	@Column(name="Return_approved")
-	private String returnApproved;
 	
 	
 	public String getReturnRequest() {
@@ -52,13 +48,6 @@ public class Record {
 		this.returnRequest = returnRequest;
 	}
 
-	public String getReturnApproved() {
-		return returnApproved;
-	}
-
-	public void setReturnApproved(String returnApproved) {
-		this.returnApproved = returnApproved;
-	}
 
 	public Record()
 	{}
@@ -121,14 +110,13 @@ public class Record {
 		this.returnDate = returnDate;
 		Approved = approved;
 		this.returnRequest = returnRequest;
-		this.returnApproved = returnApproved;
 	}
    @JsonIgnore
 	@Override
 	public String toString() {
 		return "Record [id=" + id + ", bid=" + bid + ", uid=" + uid + ", issueDate=" + issueDate + ", returnDate="
 				+ returnDate + ", Approved=" + Approved + ", returnRequest=" + returnRequest + ", returnApproved="
-				+ returnApproved + "]";
+				+ "]";
 	}
 
 	

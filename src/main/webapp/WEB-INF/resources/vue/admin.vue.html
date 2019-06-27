@@ -2,7 +2,7 @@
 #table {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
-	width: 80%;
+	width: 100%;
 }
 
 #table td, #customers th {
@@ -27,13 +27,19 @@
 }
 </style>
 
-<div>
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active   "> Add/update Book Here
+            </li>
+        </ol>
+    </nav>
+   <div> <button class="btn btn-primary"
+            @click="isNewBook = true,
+                       showBookModal = true">Add Book</button>
+   </div>
 	<div>
-		<button data-toggle="modal" data-target="#myModal"
-			style="margin-left: 200px;"
-			@click="isNewBook = true, showBookModal = true">Add Book</button>
-
-		<table id="table" style="margin-left: 100px; margin-top: 10px;">
+		<table id="table">
 			<thead>
 				<tr>
 					<th>Name</th>
@@ -67,7 +73,7 @@
 		Name: <input type="text" name="name" v-model="temprow.name"
 			
 						:disabled="!isNewBook" > <br>
-		Author <input type="text" name="author" v-model="temprow.author"
+		Author <input type= "text" name="author" v-model="temprow.author"
 		 :disabled="!isNewBook"> <br>
 		Publisher <input type="text" name="publisher"
 			v-model="temprow.publisher"  :disabled="!isNewBook">
@@ -75,14 +81,14 @@
 			v-model="temprow.copiesOwned">
 	</div>
 	<div slot="footer">
-		<button @click="isNewBook = false;showBookModal = false">back</button>
-		<button @click="updateBook();showBookModal = false">Save</button>
+		<button @click="isNewBook = false;showBookModal = false" class="btn btn-default">back</button>
+		<button @click="updateBook();showBookModal = false" class="btn btn-success ">Save</button>
 	</div>
 	</modal>
 	<modal v-if="res" title="error occured" :dismissible="false">
 	<p>{{res}}</p>
 	<div slot="footer">
-		<button @click="res = null">back</button>
+		<button @click="res = null" class="btn btn-default">back</button>
 	</div>
 	</modal>
 

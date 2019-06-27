@@ -2,14 +2,15 @@ package com.libs.sys.Service;
 
 import java.util.List;
 
+import com.libs.sys.Dao.RecordDao;
+import com.libs.sys.Entity.Record;
+import com.libs.sys.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.libs.sys.Entity.Book;
 import com.libs.sys.Dao.BookDao;
-import com.libs.sys.Service.BookService;
-
 
 
 @Service
@@ -19,6 +20,10 @@ public class BookServiceImpl implements BookService {
 	@Autowired
 	@Qualifier("bookDaoImpl")
 	BookDao bookdao;
+
+    @Autowired
+    @Qualifier("recordDaoImpl")
+    RecordDao recordDao;
 
 	public void addBook(Book book) {
 		// TODO Auto-generated method stub
@@ -46,9 +51,10 @@ public class BookServiceImpl implements BookService {
 
 
 	@Override
-	public List<Book> searchBook(String query) {
+	public List<Book> searchBook(String query, User user) {
 		// TODO Auto-generated method stub
-		return bookdao.searchBook(query);
+        List<Integer> booksOwned = recordDao.getRecordsByUserId(user.getId());
+		return bookdao.searchBook(query,booksOwned);
 	}
 
 	@Override

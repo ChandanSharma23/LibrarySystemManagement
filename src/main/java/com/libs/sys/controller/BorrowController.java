@@ -3,6 +3,7 @@ package com.libs.sys.controller;
 import java.io.IOException;
 import java.util.List;
 
+import com.libs.sys.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,8 @@ public class BorrowController {
 	@ResponseBody
 	public List<Book> searchBook(@RequestParam String query) throws IOException {
 		System.out.println(query);
-		return bookService.searchBook(query);
+		 User user =HomeController.userLoggedIn;
+		return bookService.searchBook(query,user);
 		
 	}
 	

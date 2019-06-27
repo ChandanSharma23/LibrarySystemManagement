@@ -13,7 +13,8 @@ public class UserBookDetails {
 	String Publisher;
 	Date DateIssued;
 	Date DateReturned;
-	Boolean Approved;
+	String Approved;
+	String ReturnRequest;
 	
 	 public UserBookDetails(){
 		 
@@ -99,13 +100,19 @@ public class UserBookDetails {
 		DateReturned = dateReturned;
 	}
 
-	public Boolean getApproved() {
+	public String getApproved() {
 		return Approved;
 	}
 
-	public void setApproved(Boolean approved) {
+	public void setApproved(String approved) {
 		Approved = approved;
 	}
-	 
-	 
+
+    public String getReturnRequest() {
+        return ReturnRequest;
+    }
+
+    public void setReturnRequest(String returnRequest) {
+        ReturnRequest = returnRequest;
+    }
 }

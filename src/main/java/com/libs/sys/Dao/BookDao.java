@@ -14,7 +14,7 @@ public interface BookDao {
 	public Book updateBook(Book book );
 	public void deleteBook(int id);
 
-	public List<Book> searchBook(String query);
+	public List<Book> searchBook(String query, List<Integer> booksOwned);
 	public Book getBook(String name, String author, String publisher);
 	public void increaseCount(int bookID);
 	public Book getBookById(int id);

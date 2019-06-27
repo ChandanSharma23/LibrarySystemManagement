@@ -2,6 +2,7 @@ package com.libs.sys.Service;
 
 import java.util.List;
 
+import com.libs.sys.Entity.User;
 import org.springframework.stereotype.Service;
 
 import com.libs.sys.Entity.Book;
@@ -21,7 +22,7 @@ public interface BookService {
 	public Book updateBook(Book book);
 
 
-	public List<Book> searchBook(String query);
+	public List<Book> searchBook(String query, User user);
 
 	public Book getBook(String name, String author, String publisher)throws RuntimeException;
 

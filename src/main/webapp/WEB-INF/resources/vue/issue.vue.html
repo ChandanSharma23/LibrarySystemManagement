@@ -2,7 +2,7 @@
 #table {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
-	width: 80%;
+	width: 100%;
 }
 
 #table td, #customers th {
@@ -27,13 +27,15 @@
 }
 </style>
 
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active"> Approve and issue book to user
+            </li>
+        </ol>
+    </nav>
 
-
-
-<div>
-{{rows}}
-
-		<table id="table" style="margin-left: 100px; margin-top: 10px;">
+		<table id="table" >
 			<thead>
 				<tr>
 					<th>Student Name</th>
@@ -42,8 +44,7 @@
 					<th>Author</th>
 					<th>Publisher</th>
 					
-					<th>Action</th>
-					<
+					<th>Approve</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -53,7 +54,8 @@
 					<td>{{row.bookName}}</td>
 					<td>{{row.author}}</td>
 					<td>{{row.publisher}}</td>
-					<td><button @click = "acceptReq(row.buid)">Issued  </button></td> 
+					<td><button class="btn btn-primary"
+                            @click = "acceptReq(row.buid)">Approve Request</button></td>
 				</tr>
 			</tbody>
 		</table>
