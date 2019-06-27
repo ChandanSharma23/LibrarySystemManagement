@@ -11,6 +11,8 @@ public interface UserService {
 	 public abstract void updateUser(User s);
 	 public abstract void deleteUserID(int id);
 	public abstract User login(int i, String password);
+	public abstract User getUserbyRoll(int roll);
+
 	
 
 }

@@ -95,5 +95,30 @@ public class UserDaoimpl implements UserDao {
 
 	}
 
+	@Override
+	public User fetchUserbyRoll(int roll) {
+		
+		Session session = HibernateUtil.getSF().openSession();
+	    User s = null;
+		try {
+			session.beginTransaction();
+			System.out.println("getting the User...");
+			
+			Query q = session.createQuery(" from User where roll=:r");
+ 		    q.setInteger("r", roll); 
+ 		    s =  (User) q.getResultList().get(0);
+	     	session.getTransaction().commit();
+		}
+		catch(Exception ex) {
+			session.getTransaction().rollback();
+		}
+		finally {
+			session.close();
+		}
+		System.out.println(roll);
+		System.out.println(s);
+		return s;
+			}
+
 	
 }

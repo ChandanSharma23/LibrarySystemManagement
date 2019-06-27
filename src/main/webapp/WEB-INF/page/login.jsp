@@ -10,24 +10,33 @@
 <spring:url value="/resources/style.css" var="mainCss"></spring:url>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<link href="${mainCss}" rel="stylesheet" />
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	 
+	<style type="text/css">
+	.container {
+    width: 401px;
+}</style> 
+<style>
+.mess{
+text-align:center;
+}</style>
+<link href="${mainCss}" rel="stylesheet" />
 </head>
 <body>
-	<div>Welcome to e-library</div>
-	<div id="login" style="display: block" class="container">
+	<div class="mess"><h2>Welcome to e-library</h2></div>
+	<div class="mess">${message}</div>
+		<div id="login" style="display: block" class="container">
 	
-	<form:form method="POST" action="dashBoard" style="top: 50px !important;" modelAttribute="user">
+	<form:form method="POST" action="dashBoard" style="top: 50px !important; background-color: #DFDFDF !important;" modelAttribute="user">
 			<h1>Login here</h1>
 			
 			<div class="form-group">
-			ROllnumber:
+			RollNumber:
 				<form:input path="roll" type="number" class="form-control" required="required"/>
 			</div>
 			
@@ -35,7 +44,6 @@
 			Password: 
 			<form:input path="password" type="password" class="form-control" required="required" />
 			</div>
-
 			<input type="submit" value="login" class="btn btn-default" />
 		</form:form>
 		<br> No account yet ? click ->
@@ -45,7 +53,7 @@
 
 
 
-	<div id="signup" style="display: none">
+	<div id="signup" style="display: none" class="container">
 
 	<form:form method="POST" action="save" modelAttribute="user">
 	

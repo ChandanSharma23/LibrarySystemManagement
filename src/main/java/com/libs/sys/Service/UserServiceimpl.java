@@ -45,5 +45,11 @@ public class UserServiceimpl implements UserService {
 		
 	}
 
+	@Override
+	public User getUserbyRoll(int roll) {
+		
+		return userDaoimpl.fetchUserbyRoll(roll);
+	}
+
 	
 }

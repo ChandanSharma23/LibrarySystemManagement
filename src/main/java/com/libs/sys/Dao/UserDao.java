@@ -9,4 +9,5 @@ public interface UserDao {
 	public abstract void updateUser(User s);
 	public abstract void deleteUserID(int id);
 	public abstract User getUser(int roll, String password);
+	public abstract User fetchUserbyRoll(int roll);
 }

@@ -27,10 +27,17 @@ public class HomeController {
     return "login";
 	}
 	@RequestMapping(value="/save")
-	public String getHomePage4(@ModelAttribute("user") User user) {
-		userService.createUser(user);
-	    return "login";
-	}
+	public String getHomePage4(@ModelAttribute("user") User user, Model model) {
+	    User u= userService.getUserbyRoll(user.getRoll());
+	    if(u== null)
+	     {userService.createUser(user);
+	     model.addAttribute("user",new User());   
+	     }else {
+	    	
+	         model.addAttribute("message", "This roll number already exists"); 
+	     }
+	    return "login"; 
+	   }
 	
 
 	@RequestMapping(value="/dashBoard")
