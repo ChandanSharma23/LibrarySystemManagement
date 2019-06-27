@@ -28,12 +28,16 @@ text-align:center;
 <link href="${mainCss}" rel="stylesheet" />
 </head>
 <body>
-	<div class="mess"><h2>Welcome to e-library</h2></div>
+<div class="container" style="margin-top: 30px;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: lightsteelblue;color: darkolivegreen">
+        <p class="navbar-brand"> Welcome to e-Library Service Portal</p>
+    </nav>
+</div>
+<div style="margin-top: 40px">
 	<div class="mess">${message}</div>
 		<div id="login" style="display: block" class="container">
 	
-	<form:form method="POST" action="dashBoard" style="top: 50px !important; background-color: #DFDFDF !important;" modelAttribute="user">
-			<h1>Login here</h1>
+	<form:form method="POST" action="dashBoard" style="top: 50px !important; " modelAttribute="user">
 			
 			<div class="form-group">
 			RollNumber:

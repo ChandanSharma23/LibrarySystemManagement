@@ -86,12 +86,7 @@ public class HomeController {
 		model.addAttribute("user", new User());
 	    return "login";
 	}
-	
-	
-	@RequestMapping(value="/return")
-	public String getHomePage3() {
-    return "return";
-	}
+
 	
 	@RequestMapping(value="/userDetails")
 	@ResponseBody

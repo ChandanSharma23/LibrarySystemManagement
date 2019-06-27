@@ -63,7 +63,7 @@
 <body bgcolor="#efefef">
 
 
-    <nav class="navbar navbar-light bg-light justify-content-between" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-light bg-light justify-content-between" style="background-color: lightsteelblue;color: darkolivegreen">
         <!-- Navbar content -->
         <p class="navbar-brand"> Welcome to e-Library Service Portal</p>
         <button class=" navbar-brand btn btn-primary my-2 my-sm-0" style="float: right;" @click="location.href='${pageContext.request.contextPath}/logout'" >Logout</button>
@@ -80,7 +80,7 @@
     <button class="tablinks" @click="switchUI('return')" >return Request</button>
 </div>
 <div style="margin-top: 50px; top: 30px  !important;">
-s
+
 <router-view></router-view>
 
 </div>
