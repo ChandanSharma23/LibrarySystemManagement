@@ -25,6 +25,10 @@ public interface BookService {
 
 	public Book getBook(String name, String author, String publisher)throws RuntimeException;
 
+
+	public void increaseCount(int bookID);
+
 	public void returnBook(int id);
+
 	
 }

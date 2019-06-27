@@ -1,0 +1,26 @@
+<div>
+{{rows}} fggg
+</div>
+<script>
+window['return'] = {
+		data: function(){
+			return{
+				rows: null
+			}
+			},
+	created: function() {
+		this.loadReturnReq();
+	},
+	methods:{
+		loadReturnReq: function(){
+			// load return
+				this.$api({
+					url:"/loadReturns",
+					success: function(books){
+						 this.rows =books;
+					}
+				})
+		}
+	}
+}
+</script>

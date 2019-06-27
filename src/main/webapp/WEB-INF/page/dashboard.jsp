@@ -29,7 +29,11 @@
 <button @click="switchUI('borrow')" target=>Borrow</button>
 <button @click="location.href='${pageContext.request.contextPath}/logout'" >Logout</button>
 <button @click="switchUI('admin')" >add or delete books</button>
-<button @click="switchUI('User')" target=>User</button>
+<button @click="switchUI('User')" >User</button>
+
+<button @click="switchUI('issue')" >Issue Request</button>
+<button @click="switchUI('return')" >return Request</button>
+
 </div>
 <div style="margin-top: 50px; top: 30px  !important;">
 
@@ -56,7 +60,18 @@ Vue.use(Vuetils);
 							name: 'User',
 							path: '/User',
 							component: loadVueComponent("User")
-							}
+							},
+						{
+							name: 'issue',
+							path: '/issue',
+							component: loadVueComponent("issue")
+						},
+						{
+							name: 'return',
+							path: '/return',
+							component: loadVueComponent("return")
+						}
+
 					]
 			}),
 			methods: {

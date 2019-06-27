@@ -27,50 +27,77 @@
 }
 </style>
 <div>
-<div>
-	<h3>You can Issue Your Books here</h3>
-	Enter Name of Book<input type="text" v-model="query"/>
-	<button @click="searchBooks" >Search</button>
-	
-	
-</div>
-<div v-if="books">
-	<div v-if="books.length>0">
-		<table id="table" style="margin-left: 100px; margin-top: 10px;">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Author</th>
-					<th>Publisher</th>
-					<th>Availability</th>
-					<th>Action</th>
-				
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="row in books">
-					<td>{{row.name}}</td>
-					<td>{{row.author}}</td>
-					<td>{{row.publisher}}</td>
-					<td>{{row.copiesOwned-row.copiesIssued}}</td>
-					<td><button :disabled="(row.copiesOwned-row.copiesIssued) == 0">Borrow</button></td>
-					
-				</tr>
-			</tbody>
-		</table>
-	</div>
-<div v-else>
 
-NO BOOKS FOUND
-</div>
-</div>
+	<div>
+		<h3>You can Issue Your Books here</h3>
+		Enter Name of Book<input type="text" v-model="query" />
+		<button @click="searchBooks">Search</button>
+
+	</div>
+	<div v-if="books">
+		<div v-if="books.length>0">
+			<table id="table" style="margin-left: 100px; margin-top: 10px;">
+				<thead>
+					<tr>
+						<th>Id</th>
+
+						<th>Name</th>
+						<th>Author</th>
+						<th>Publisher</th>
+						<th>Availability</th>
+						<th>Action</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="row in books">
+						<td>{{row.id}}</td>
+						<td>{{row.name}}</td>
+						<td>{{row.author}}</td>
+						<td>{{row.publisher}}</td>
+						<td>{{row.copiesOwned-row.copiesIssued}}</td>
+						<td><button @click="temprow=row; viewBookModal=true"
+								:disabled="(row.copiesOwned-row.copiesIssued) == 0">Borrow</button></td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div v-else>NO BOOKS FOUND</div>
+	</div>
+	<div>
+		<modal v-if="viewBookModal" :dismissible="false" title="Confirmation">
+		<div>
+			Name: <input type="text" name="name" v-model="temprow.name" disabled>
+			<br> Author <input type="text" name="author"
+				v-model="temprow.author" disabled> <br> Publisher <input
+				type="text" name="publisher" v-model="temprow.publisher" disabled>
+		</div>
+		<div slot="footer">
+			<button @click="viewBookModal = false">Cancel</button>
+			<button
+				@click="viewBookModal = false; bookID = temprow.id; issueBook()">Issue</button>
+		</div>
+		</modal>
+
+	</div>
 </div>
 <script>
+loadVueComponent('modal');
 window['borrow'] = {
 		data: function(){
 			return{
 				query: null,
-				books: null
+				books: null,
+				temprow: {
+					id:null,
+					name: null,
+					author: null,
+					publisher: null,
+					copiesOwned: null},
+				viewBookModal:false,
+				bookID: null
+
 				}
 			},
 			created: function() {
@@ -90,6 +117,21 @@ window['borrow'] = {
 							console.log("error");
 						}
 					});
+			},
+			issueBook: function(){
+				 this.$api({
+						url:"issuebook?bookID=" + this.bookID,
+						success: function(res){
+							console.log(res);
+							console.log("success");
+							
+							},
+						error: function(res){
+							console.log(res);
+							console.log("error");
+						}
+					});
+			this.books = null;
 			}
 			}
 			

@@ -48,9 +48,6 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> searchBook(String query) {
 		// TODO Auto-generated method stub
-		
-		
-		
 		return bookdao.searchBook(query);
 	}
 
@@ -65,12 +62,17 @@ public class BookServiceImpl implements BookService {
 
 
 	@Override
+
+	public void increaseCount(int bookID) {
+		// TODO Auto-generated method stub
+		
+		bookdao.increaseCount(bookID);
 	public void returnBook(int id) {
 	Book	book = bookdao.getBookById(id);
 	int	count = book.getCopiesIssued() -1;
 	book.setCopiesIssued(count);
 		bookdao.updateBook(book);
-		
+
 	}
 
 }
