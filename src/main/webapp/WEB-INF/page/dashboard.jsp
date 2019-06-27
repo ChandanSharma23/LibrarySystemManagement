@@ -12,7 +12,6 @@
 <script src="<c:url value="/resources/loadVueComponent.js"/>"></script>
 <script src="<c:url value="/resources/vuetils.js"/>"></script>
 <script src="<c:url value="/resources/api.js"/>"></script>
-    <script>var user = ${user};</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <link rel="stylesheet"
@@ -63,16 +62,19 @@
 <body bgcolor="#efefef">
 
 
-    <nav class="navbar navbar-light bg-light justify-content-between" style="background-color: lightsteelblue;color: darkolivegreen">
+    <nav class="navbar navbar-light bg-light justify-content-between" style="background-color: darkgray;color: darkolivegreen">
         <!-- Navbar content -->
         <p class="navbar-brand"> Welcome to e-Library Service Portal</p>
-        <button class=" navbar-brand btn btn-primary my-2 my-sm-0" style="float: right;" @click="location.href='${pageContext.request.contextPath}/logout'" >Logout</button>
+        <button class=" navbar-brand btn btn-primary"
+                style="float: right;"
+                onclick="location.href='${pageContext.request.contextPath}/logout'" >Logout</button>
     </nav>
 
 
 
 <div class="main">
-<div class="tab">
+<div class="tab"
+     style="margin-top: -21px;">
     <button class="tablinks" @click="switchUI('User')" >User</button>
     <button class="tablinks" @click="switchUI('borrow')" target=>Borrow</button>
     <button class="tablinks" @click="switchUI('admin')" >add or delete books</button>

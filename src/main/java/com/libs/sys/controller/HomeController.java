@@ -14,12 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.libs.sys.Entity.Record;
 import com.libs.sys.Entity.User;
 
 import com.libs.sys.Model.UserBookDetails;
-
-import com.libs.sys.Service.BookService;
 
 import com.libs.sys.Service.BookService;
 

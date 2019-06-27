@@ -29,7 +29,7 @@ text-align:center;
 </head>
 <body>
 <div class="container" style="margin-top: 30px;">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: lightsteelblue;color: darkolivegreen">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: darkgray;color: darkolivegreen">
         <p class="navbar-brand"> Welcome to e-Library Service Portal</p>
     </nav>
 </div>
