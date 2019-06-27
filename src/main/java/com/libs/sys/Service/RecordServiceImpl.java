@@ -1,11 +1,16 @@
 package com.libs.sys.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import com.libs.sys.Dao.RecordDao;
 import com.libs.sys.Entity.Record;
+import com.libs.sys.Model.UserBookDetails;
 
+@Service
 public class RecordServiceImpl implements RecordService {
 	
 	@Autowired
@@ -29,6 +34,12 @@ public class RecordServiceImpl implements RecordService {
 	public void deleteRecord(int id) {
 		// TODO Auto-generated method stub
              recordDao.deleteRecord(id);
+	}
+
+	@Override
+	public List<UserBookDetails> getUserDetails(int id) {
+		return recordDao.getUserDetails(id);
+		
 	}
 
 }

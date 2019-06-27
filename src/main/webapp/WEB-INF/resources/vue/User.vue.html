@@ -1,0 +1,110 @@
+<style>
+#table {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 80%;
+}
+
+#table td, #customers th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#table tr:hover {
+	background-color: #ddd;
+}
+
+#table th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: lightslategray;
+	color: white;
+}
+</style>
+	OLa OLA
+	{{data}}
+	<div>
+	<div>
+	{{records}}
+      <table id="table" style="margin-left: 100px; margin-top: 10px;">
+			<thead>
+				<tr>
+					<th>UID</th>
+					<th>BID</th>
+					<th>userName</th>
+					<th>RollNumber</th>
+					<th>BookName</th>
+					<th>Author</th>
+					<th>Publisher</th>
+					<th>DateIssued</th>
+					<th>DateReturned</th>
+					</tr>
+			</thead>
+			<tbody>
+				<tr v-for="row in records">
+					<td>{{row.uid}}</td>
+					<td>{{row.bid}}</td>
+					<td>{{row.userName}}</td>
+					<td>{{row.rollNumber}}</td>
+					<td>{{row.bookName}}</td>
+					<td>{{row.author}}</td>
+					<td>{{row.publisher}}</td>
+					<td>{{row.dateIssued}}</td>
+					<td>{{row.dateReturned}}</td>
+					<td><button @click="returnbook(row.id)">return</button></td> 
+					</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	</div>
+
+<script>
+loadVueComponent('modal');
+window['User'] = {
+		
+		data: function(){
+		return{
+			records: null
+		}
+		  },
+	created: function() {
+		debugger;
+	this.LoadData();
+		
+	},
+	methods:{
+		LoadData: function(){
+			this.$api({
+					url:"userBookDetails",
+					success: function(res){
+						this.records=res;
+					
+					}
+				}),
+				returnbook : function(id){
+					 this.$api({
+							url:"deleteBook?id="+id,
+							success: function(res){
+								console.log("success");
+							},
+							error: function(res){
+								console.log(res.getResponseHeader());
+							}
+						});
+					
+					 this.loadBooks();
+					 
+					},
+			}
+		}
+}
+			
+			
+
+</script>

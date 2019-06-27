@@ -1,5 +1,7 @@
 package com.libs.sys.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -9,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.libs.sys.Entity.User;
+import com.libs.sys.Model.UserBookDetails;
+import com.libs.sys.Service.RecordService;
 import com.libs.sys.Service.UserService;
-
 
 @Controller
 public class HomeController {
@@ -18,6 +21,10 @@ public class HomeController {
 	@Autowired
 	@Qualifier("userServiceimpl")
 	UserService userService;
+	
+	@Autowired
+	@Qualifier("recordServiceImpl")
+	RecordService recordService;
 	
 	public static User userLoggedIn = null;
 
@@ -76,6 +83,14 @@ public class HomeController {
 	public User getUserDetails() {
 		User user =userLoggedIn;
 		return user;
+	}
+	
+	@RequestMapping(value="/userBookDetails")
+	@ResponseBody
+	public List<UserBookDetails>  getUserBookDetails() {
+		System.out.println("yaaayyyyyyyyyy");
+		int i =userLoggedIn.getId();
+		return recordService.getUserDetails(i);
 	}
 	
 }
