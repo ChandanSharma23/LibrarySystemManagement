@@ -26,9 +26,12 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 	@Override
-	public void deleteRecord(int id) {
+	public void updateRecord(int id) {
 		// TODO Auto-generated method stub
-             recordDao.deleteRecord(id);
+           Record record =  recordDao.getRecordById(id);
+           record.setReturnRequest("return initiated");
+           recordDao.updateRecord(record);
+           System.out.println(recordDao.getRecordById(id));
 	}
 
 	@Override

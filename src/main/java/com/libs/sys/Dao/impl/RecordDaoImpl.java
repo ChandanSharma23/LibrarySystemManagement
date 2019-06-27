@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -27,14 +28,33 @@ public class RecordDaoImpl implements RecordDao {
 	@Override
 	public Record updateRecord(Record record) {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteRecord(int id) {
-		// TODO Auto-generated method stub
+Session session = HibernateUtil.getSF().openSession();
+		
+		try {			
+			// create a student object
+			System.out.println("Creating new book object.."  );
+		
+			
+			// start a transaction
+			session.beginTransaction();
+			
+			session.update(record);
+			
+			// commit transaction
+			session.getTransaction().commit();
+			
+			System.out.println("Done!");
+		}catch(Exception ex) {
+			System.out.println(ex);
+			session.getTransaction().rollback();
+		}
+		finally {
+			session.close();
+		}
+		return record;
 		
 	}
+
 
 	@Override
 	public void addRecord(int bookID, int id) {
@@ -211,6 +231,25 @@ Session session = HibernateUtil.getSF().openSession();
 		}
 		
 		
+	}
+
+
+	@Override
+	public Record getRecordById(int id) {
+		// TODO Auto-generated method stub
+		Record rec= null ;
+		Session session = HibernateUtil.getSF().openSession();
+			try{ 
+				rec = session.get(Record.class, id);
+			} catch (HibernateException ex) {
+				ex.printStackTrace();
+				session.getTransaction().rollback();
+			}finally {
+				session.close();
+			}
+			
+			return rec;
+	
 	}
 
 }

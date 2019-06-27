@@ -13,7 +13,7 @@ import com.libs.sys.Model.UserBookDetails;
 public interface RecordDao {
 	
 	public Record updateRecord(Record record );
-	public void deleteRecord(int id);
+	public Record getRecordById(int id);
 
 	public List<UserBookDetails> getUserDetails(int id);
 

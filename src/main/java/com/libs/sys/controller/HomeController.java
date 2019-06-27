@@ -139,13 +139,11 @@ public class HomeController {
 		
 	}
 
-	
-}
 
 	@RequestMapping(value = "/returnbook", method = RequestMethod.POST)
 	@ResponseBody
 	public void newContact1(@RequestParam Integer bid, @RequestParam Integer buid) {
-		recordService.deleteRecord(buid);
+		recordService.updateRecord(buid);
 		bookService.returnBook(bid);
 	}
 }

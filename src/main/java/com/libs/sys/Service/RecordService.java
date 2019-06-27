@@ -12,7 +12,7 @@ public interface RecordService {
 	
 	
 	public Record updateRecord(Record record );
-	public void deleteRecord(int id);
+	public void updateRecord(int id);
 
 	public List<UserBookDetails> getUserDetails(int id);
 

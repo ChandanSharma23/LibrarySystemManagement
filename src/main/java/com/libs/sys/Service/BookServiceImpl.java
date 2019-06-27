@@ -67,6 +67,7 @@ public class BookServiceImpl implements BookService {
 		// TODO Auto-generated method stub
 		
 		bookdao.increaseCount(bookID);
+	}
 	public void returnBook(int id) {
 	Book	book = bookdao.getBookById(id);
 	int	count = book.getCopiesIssued() -1;
@@ -74,5 +75,6 @@ public class BookServiceImpl implements BookService {
 		bookdao.updateBook(book);
 
 	}
+	
 
 }
