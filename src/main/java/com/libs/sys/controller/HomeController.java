@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,6 +18,8 @@ import com.libs.sys.Entity.Record;
 import com.libs.sys.Entity.User;
 
 import com.libs.sys.Model.UserBookDetails;
+
+import com.libs.sys.Service.BookService;
 
 import com.libs.sys.Service.BookService;
 
@@ -31,8 +34,6 @@ public class HomeController {
 	UserService userService;
 	
 	@Autowired
-
-	
 	@Qualifier("bookServiceImpl")
 	BookService bookService;
 	
@@ -107,7 +108,6 @@ public class HomeController {
 		return recordService.getUserDetails(i);
 	}
 	
-
 	@RequestMapping(value="/issuebook")
 	@ResponseBody
 	public void issueBook(@RequestParam int bookID) throws IOException {
@@ -141,3 +141,12 @@ public class HomeController {
 
 	
 }
+
+	@RequestMapping(value = "/returnbook", method = RequestMethod.POST)
+	@ResponseBody
+	public void newContact1(@RequestParam Integer bid, @RequestParam Integer buid) {
+		recordService.deleteRecord(buid);
+		bookService.returnBook(bid);
+	}
+}
+

@@ -26,12 +26,11 @@
 	color: white;
 }
 </style>
-	OLa OLA
-	{{data}}
+OLa OLA
+<div>
 	<div>
-	<div>
-	{{records}}
-      <table id="table" style="margin-left: 100px; margin-top: 10px;">
+		{{records}}
+		<table id="table" style="margin-left: 100px; margin-top: 10px;">
 			<thead>
 				<tr>
 					<th>UID</th>
@@ -43,7 +42,7 @@
 					<th>Publisher</th>
 					<th>DateIssued</th>
 					<th>DateReturned</th>
-					</tr>
+				</tr>
 			</thead>
 			<tbody>
 				<tr v-for="row in records">
@@ -56,25 +55,24 @@
 					<td>{{row.publisher}}</td>
 					<td>{{row.dateIssued}}</td>
 					<td>{{row.dateReturned}}</td>
-					<td><button @click="returnbook(row.id)">return</button></td> 
-					</tr>
+					<td><button @click="returnbook(row.bid, row.buid)">return</button></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
-	
-	</div>
+
+</div>
 
 <script>
+
 loadVueComponent('modal');
 window['User'] = {
-		
 		data: function(){
 		return{
 			records: null
 		}
 		  },
 	created: function() {
-		debugger;
 	this.LoadData();
 		
 	},
@@ -86,25 +84,19 @@ window['User'] = {
 						this.records=res;
 					
 					}
-				}),
-				returnbook : function(id){
+				})
+		},
+	returnbook : function(bid, buid){
 					 this.$api({
-							url:"deleteBook?id="+id,
+							url:"returnbook?bid="+bid+"&buid="+buid,
 							success: function(res){
 								console.log("success");
-							},
-							error: function(res){
-								console.log(res.getResponseHeader());
 							}
-						});
 					
-					 this.loadBooks();
-					 
-					},
+		        })
 			}
-		}
+		
+				
+	}
 }
-			
-			
-
 </script>
