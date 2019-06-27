@@ -3,6 +3,7 @@ package com.libs.sys.Dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
@@ -200,4 +201,25 @@ public class BookDaoImpl implements BookDao {
 		return b;
 	}
 
-}
+
+	@Override
+	public Book getBookById(int id) {
+
+		Book book= null ;
+		Session session = HibernateUtil.getSF().openSession();
+			try{ 
+				book = session.get(Book.class, id);
+			    System.out.println(book.getAuthor()+"	"+book.getPublisher());
+			} catch (HibernateException ex) {
+				ex.printStackTrace();
+				session.getTransaction().rollback();
+			}finally {
+				session.close();
+			}
+			
+			return book;
+		}
+	}
+
+
+	

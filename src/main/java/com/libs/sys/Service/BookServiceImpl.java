@@ -63,4 +63,14 @@ public class BookServiceImpl implements BookService {
 		return null;
 	}
 
+
+	@Override
+	public void returnBook(int id) {
+	Book	book = bookdao.getBookById(id);
+	int	count = book.getCopiesIssued() -1;
+	book.setCopiesIssued(count);
+		bookdao.updateBook(book);
+		
+	}
+
 }
