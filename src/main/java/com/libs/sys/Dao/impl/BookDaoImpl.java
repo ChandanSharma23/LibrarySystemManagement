@@ -43,11 +43,6 @@ public class BookDaoImpl implements BookDao {
 		}
 		finally {
 			session.close();
-		}
-
-
-		
-
 	}
 
 	
@@ -119,8 +114,9 @@ public class BookDaoImpl implements BookDao {
 		 
 		}
 		 catch(Exception ex) {
-			 System.out.println(ex);
+			
 				session.getTransaction().rollback();
+				 throw new RuntimeException("book assigned to user");
 				
 			}
 			finally {

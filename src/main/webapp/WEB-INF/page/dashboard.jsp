@@ -70,9 +70,6 @@
                 style="float: right;"
                 onclick="location.href='${pageContext.request.contextPath}/logout'" >Logout</button>
     </nav>
-
-
-
 <div class="main">
 <div class="tab"
      style="margin-top: -21px;">
