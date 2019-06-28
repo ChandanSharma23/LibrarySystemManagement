@@ -59,7 +59,7 @@
 					<td data-toggle="modal" data-target="#myModal"
 						@click="temprow=row,showBookModal = true"><i
 						style='font-size: 24px' class='fas'>&#xf044;</i></td>
-					<td @click="deleteBook(row.id)"><i style='font-size: 24px'
+					<td @click="temprow=row;deletebook =true"><i style='font-size: 24px'
 						class='far'>&#xf2ed;</i></td>
 				</tr>
 			</tbody>
@@ -103,6 +103,15 @@
 	</div>
 	</modal>
 
+    <modal v-if="deletebook" title="Are you sure you want to delete this book?" :dismissible="false">
+       <p> Book {{temprow.name}} will be deleted from database.</p>
+        <p>Are you sure you want to delete this</p>
+        <div slot="footer">
+            <button @click="deletebook = false" class="btn btn-default ">Cancel</button>
+            <button @click="deleteBook(temprow.id)" class="btn btn-default btn-danger">Delete</button>
+        </div>
+    </modal>
+
 </div>
 
 <script>
@@ -120,8 +129,9 @@ window['admin'] = {
 				copiesOwned: null
 			},
 			isNewBook: false,
-			res: null,
-			showBookModal:false
+			showBookModal:false,
+            deletebook: false,
+            res:null
 			
 		}
 		  },
@@ -138,6 +148,7 @@ window['admin'] = {
 				author: null,
 				publisher: null,
 				copiesOwned: null
+
 			};
 			this.res= null;
 		},
@@ -165,16 +176,18 @@ window['admin'] = {
 			 
 		},
 		deleteBook: function(id){
+		    debugger;
 			 this.$api({
 					url:"deleteBook?id="+id,
 					success: function(res){
 						console.log("success");
 					},
 					error: function(res){
-						console.log(res.getResponseHeader());
+						this.error = "Book cannot be deleted. Book is issued to one or more users"
 					}
 				});
-			
+			this.temprow =null;
+            this.deletebook = false;
 			 this.loadBooks();
 			 
 			},

@@ -76,7 +76,7 @@
         <div slot="footer">
             <button @click="temprow = null" class="btn btn-default">Cancel</button>
             <button
-                    @click="acceptReq(temprow.buid); " class="btn btn-success ">Create Reequest</button>
+                    @click="acceptReq(temprow.buid); " class="btn btn-success ">Approve</button>
         </div>
     </modal>
 
@@ -111,8 +111,9 @@ window['return'] = {
                     this.rows =res;
                 }
             })
-            this.loadReturnReq();
+
             this.temprow = null;
+            document.location.reload();
         }
 	}
 }

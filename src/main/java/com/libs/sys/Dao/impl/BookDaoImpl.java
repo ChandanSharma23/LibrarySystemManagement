@@ -149,10 +149,15 @@ public class BookDaoImpl implements BookDao {
 			 * list= session.createCriteria(Book.class ).add(Restrictions.like("Name",
 			 * "%"+query+"%")) .list();
 			 */
-			Query<Book> q = session.createQuery("from Book where name like :n and bookid not in :ids");
-			q.setString("n", '%'+query+'%');
-			q.setParameter("ids",booksOwned);
-			
+            Query<Book> q =null;
+            if(booksOwned.size()!=0){
+                q = session.createQuery("from Book where name like :n and bookid not in :ids");
+                q.setString("n", '%'+query+'%');
+                q.setParameter("ids",booksOwned);
+            }else{
+                q = session.createQuery("from Book where name like :n");
+                q.setString("n", '%'+query+'%');
+            }
 			
 			list= q.getResultList();
 			

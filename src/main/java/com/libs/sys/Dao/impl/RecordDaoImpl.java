@@ -274,11 +274,14 @@ Session session = HibernateUtil.getSF().openSession();
              * list= session.createCriteria(Book.class ).add(Restrictions.like("Name",
              * "%"+query+"%")) .list();
              */
-            org.hibernate.Query<Integer> q = session.createQuery("select r.bid from Record r where r.uid = :i and r.returnRequest != 'completed'");
+            org.hibernate.Query<Integer> q =
+                    session
+                            .createQuery("select r.bid from Record r where r.uid = :i and r.returnRequest is null");
             q.setInteger("i",id);
 
 
             records= q.getResultList();
+            System.out.println(records.size());
 
             session.getTransaction().commit();
         }
