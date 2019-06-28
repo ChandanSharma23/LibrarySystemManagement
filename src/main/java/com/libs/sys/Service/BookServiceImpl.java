@@ -54,7 +54,11 @@ public class BookServiceImpl implements BookService {
 	public List<Book> searchBook(String query, User user) {
 		// TODO Auto-generated method stub
         List<Integer> booksOwned = recordDao.getRecordsByUserId(user.getId());
-		return bookdao.searchBook(query,booksOwned);
+        if(booksOwned.size() ==0){
+          return  bookdao.getAllBooks();
+        }else{
+            return bookdao.searchBook(query,booksOwned);
+        }
 	}
 
 	@Override

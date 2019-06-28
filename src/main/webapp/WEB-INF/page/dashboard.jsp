@@ -7,8 +7,7 @@
 
 <script> var contextPath = "${pageContext.request.contextPath}/"</script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script> var role = "${user.role}"
-    console.log(user)</script>
+    <script> var role = "${user.role}"</script>
 
 <script src="https://npmcdn.com/vue-router/dist/vue-router.js"></script>
 <script src="<c:url value="/resources/loadVueComponent.js"/>"></script>
