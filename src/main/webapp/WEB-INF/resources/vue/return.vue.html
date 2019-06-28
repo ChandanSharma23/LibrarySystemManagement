@@ -1,3 +1,32 @@
+<style>
+    #table {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #table td, #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #table tr:hover {
+        background-color: #ddd;
+    }
+
+    #table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: lightslategray;
+        color: white;
+    }
+</style>
+
 <div class="container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -5,13 +34,60 @@
             </li>
         </ol>
     </nav>
-{{rows}}
+
+    <table id="table" >
+        <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Roll No</th>
+            <th>Book Name</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Return Status</th>
+            <th>Approve</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="row in rows">
+            <td>{{row.userName}}</td>
+            <td>{{row.rollNumber}}</td>
+            <td>{{row.bookName}}</td>
+            <td>{{row.author}}</td>
+            <td>{{row.publisher}}</td>
+            <td>{{row.returnRequest}}</td>
+            <td><button class="btn btn-primary"
+                        @click = " temprow=row"
+            :disabled="row.returnRequest == 'completed'">Approve Request</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <modal v-if="temprow" :dismissible="false" title="Confirmation">
+
+        <div class="form-group">
+            <div>
+                <label >Roll Number</label>
+                <input class="form-control" type="text" name="name" v-model="temprow.rollNumber" disabled>
+            </div>
+            <div><label >Author</label>
+                <input class="form-control" type="text" name="author" v-model="temprow.bookName" disabled>
+            </div>
+
+        </div>
+        <div slot="footer">
+            <button @click="temprow = null" class="btn btn-default">Cancel</button>
+            <button
+                    @click="acceptReq(temprow.buid); " class="btn btn-success ">Create Reequest</button>
+        </div>
+    </modal>
+
 </div>
 <script>
+    loadVueComponent('modal');
 window['return'] = {
 		data: function(){
 			return{
-				rows: null
+				rows: null,
+                temprow: null
 			}
 			},
 	created: function() {
@@ -21,12 +97,22 @@ window['return'] = {
 		loadReturnReq: function(){
 			// load return
 				this.$api({
-					url:"/loadReturns",
+					url:"loadReturnsReq",
 					success: function(books){
 						 this.rows =books;
 					}
 				})
-		}
+		},
+        acceptReq: function(buid){
+		    console.log("return approval")
+            this.$api({
+                url:"/acceptReturnReq?buid=" + buid,
+                success: function(res){
+                    this.rows =res;
+                }
+            })
+            this.temprow = null;
+        }
 	}
 }
 </script>

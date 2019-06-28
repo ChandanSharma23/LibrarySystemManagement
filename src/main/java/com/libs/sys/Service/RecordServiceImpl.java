@@ -1,7 +1,10 @@
 package com.libs.sys.Service;
 
+import java.util.Date;
 import java.util.List;
 
+import com.libs.sys.Dao.BookDao;
+import com.libs.sys.Entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,10 @@ public class RecordServiceImpl implements RecordService {
 	@Autowired
 	@Qualifier("recordDaoImpl")
 	RecordDao recordDao;
+
+    @Autowired
+    @Qualifier("bookDaoImpl")
+    BookDao bookDao;
 	
 
 
@@ -67,5 +74,16 @@ public class RecordServiceImpl implements RecordService {
 		
 		
 	}
+
+    @Override
+    public void acceptReturnRequest(int buid) {
+	    Record rec = recordDao.getRecordById(buid);
+	    rec.setReturnDate(new Date());
+        rec.setReturnRequest("completed");
+        recordDao.updateRecord(rec);
+        Book book =bookDao.getBookById(rec.getId());
+        book.setCopiesIssued(book.getCopiesIssued()-1);
+        bookDao.updateBook(book);
+    }
 
 }

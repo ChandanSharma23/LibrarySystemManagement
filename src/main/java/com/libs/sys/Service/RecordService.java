@@ -20,9 +20,7 @@ public interface RecordService {
 	public List<UserBookDetails> getBooksTobeReturned();
 	public List<UserBookDetails> getBookstoBeIssued();
 	public void acceptRequest(int buid);
-	
 
-	
-	
 
+    void acceptReturnRequest(int buid);
 }

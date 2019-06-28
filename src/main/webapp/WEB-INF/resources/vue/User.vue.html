@@ -45,7 +45,7 @@
                     <th>Issue Approval</th>
 					<th>DateReturned</th>
                     <th>Return</th>
-                    <th>Return Request Completed</th>
+                    <th>Return Request Status</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -59,14 +59,32 @@
                     <td><span v-if="row.approved">approved</span></td>
 					<td>{{row.dateReturned}}</td>
 					<td><button class="btn btn-primary"
-                                @click="returnbook(row.bid, row.buid)"
-                                :disabled="!row.approved || row.dateReturned">create Request</button></td>
-                    <td><span v-if="row.    dateReturned"> completed</span></td>
+                                @click="temprow=row"
+                                :disabled="!row.approved || row.returnRequest">create Request</button></td>
+                    <td>{{row.returnRequest}}</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-    {{records}}
+    <modal v-if="temprow" :dismissible="false"
+           title="Are you sure you want to return this book'">
+        <div>
+            Name: <input type="text" name="name" v-model="temprow.name"
+
+                         :disabled="!isNewBook" > <br>
+            Author <input type= "text" name="author" v-model="temprow.author"
+                          :disabled="!isNewBook"> <br>
+            Publisher <input type="text" name="publisher"
+                             v-model="temprow.publisher"  :disabled="!isNewBook">
+            Count <input type="text" name="copiesOwned"
+                         v-model="temprow.copiesOwned">
+        </div>
+        <div slot="footer">
+            <button @click="temprow = null" class="btn btn-default">back</button>
+            <button @click="returnbook(temprow.bid, temprow.buid);" class="btn btn-success ">Save</button>
+        </div>
+    </modal>
+
 
 </div>
 
@@ -76,7 +94,8 @@ loadVueComponent('modal');
 window['User'] = {
 		data: function(){
 		return{
-			records: null
+			records: null,
+            temprow: null
 		}
 		  },
 	created: function() {
@@ -101,6 +120,9 @@ window['User'] = {
 							}
 					
 		        })
+            this.LoadData();
+            this.temprow;
+
 			}
 		
 				

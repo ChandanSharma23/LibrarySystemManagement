@@ -99,22 +99,46 @@ Session session = HibernateUtil.getSF().openSession();
 	@Override
 	public List<UserBookDetails> getBooksTobeReturned() {
 		// TODO Auto-generated method stub
-		/*
-		 * Session session = HibernateUtil.getSF().openSession(); Book b = null; try {
-		 * session.beginTransaction(); System.out.println("Getting  the book...");
-		 * 
-		 * Query q = session.createQuery("from Book where id=:n"); q.setInteger("n",
-		 * bookID);
-		 * 
-		 * b= (Book)q.getSingleResult();
-		 * 
-		 * b.setCopiesIssued(b.getCopiesIssued()+1); session.update(b);
-		 * 
-		 * session.getTransaction().commit(); } catch(Exception ex) {
-		 * System.out.println(ex); session.getTransaction().rollback(); } finally {
-		 * session.close(); }
-		 */
-		return null;
+        Session session = HibernateUtil.getSF().openSession();
+        List<Object[]> r = null;
+
+        try {
+            session.beginTransaction();
+            System.out.println("getting the Details for User...");
+            Query q = session.createSQLQuery("select BUID,BID,UID, Date_Of_Issue ,Date_Of_Return ,  Approved ,username ,roll ,Name ,Author ,Publisher,Return_request from record r left join user u on u.id = r.uid left join book b on r.bid = b.bookid where Return_request = 'return initiated'");
+            r = q.getResultList();
+            session.getTransaction().commit();
+        }
+        catch(Exception ex) {
+            session.getTransaction().rollback();
+        }
+        finally {
+            session.close();
+        }
+        List<UserBookDetails> req = new ArrayList<UserBookDetails>();
+        for(Object[] row : r){
+            UserBookDetails b = new UserBookDetails();
+            b.setBUId(Integer.parseInt(row[0].toString()));
+            b.setBID(Integer.parseInt(row[1].toString()));
+            b.setUID(Integer.parseInt(row[2].toString()));
+            b.setDateIssued( (Date) row[3]);
+            b.setDateReturned((Date) row[4]);
+            if(row[5]!=null){
+                b.setApproved(row[5].toString());
+            }
+            b.setUserName(row[6].toString());
+            b.setRollNumber(Integer.parseInt(row[7].toString()));
+            b.setBookName(row[8].toString());
+            b.setAuthor(row[9].toString());
+            b.setPublisher(row[10].toString());
+            if(row[11]!=null){
+                b.setReturnRequest(row[11].toString());
+            }
+            req.add(b);
+        }
+
+        return req;
+
 	}
 
 	@Override
@@ -169,7 +193,7 @@ Session session = HibernateUtil.getSF().openSession();
 		try {
 			session.beginTransaction();
 			System.out.println("getting the Details for User...");
-			 Query q = session.createSQLQuery("select BUID,BID,UID, Date_Of_Issue ,Date_Of_Return , Approved ,username ,roll ,Name ,Author ,Publisher,Return_request from record r left join user u on u.id = r.uid left join book b on r.bid = b.bookid where u.id = :id");
+			 Query q = session.createSQLQuery("select BUID,BID,UID, Date_Of_Issue ,Date_Of_Return , Approved ,username ,roll ,Name ,Author ,Publisher,Return_request from record r left join user u on u.id = r.uid left join book b on r.bid = b.bookid where u.id = :id and r.Date_of_Return is null ");
 			 		q.setInteger("id", id);
 			 	 r = q.getResultList();
 	      	   	session.getTransaction().commit();
@@ -250,7 +274,7 @@ Session session = HibernateUtil.getSF().openSession();
              * list= session.createCriteria(Book.class ).add(Restrictions.like("Name",
              * "%"+query+"%")) .list();
              */
-            org.hibernate.Query<Integer> q = session.createQuery("select r.bid from Record r where r.uid = :i");
+            org.hibernate.Query<Integer> q = session.createQuery("select r.bid from Record r where r.uid = :i and r.returnRequest != 'completed'");
             q.setInteger("i",id);
 
 
@@ -267,6 +291,9 @@ Session session = HibernateUtil.getSF().openSession();
         }
         return records;
     }
+
+
+
 
 
     @Override

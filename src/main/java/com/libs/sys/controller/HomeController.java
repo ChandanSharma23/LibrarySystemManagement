@@ -109,7 +109,7 @@ public class HomeController {
 		recordService.addRecord(bookID,userLoggedIn.getId());
 	}
 	
-	@RequestMapping(value="/loadReturns")
+	@RequestMapping(value="/loadReturnsReq")
 	@ResponseBody
 	public List<UserBookDetails> loadreturnres() throws IOException {
 		System.out.println("gdgfhfhfj");
@@ -130,6 +130,14 @@ public class HomeController {
 		recordService.acceptRequest(buid);
 		
 	}
+
+    @RequestMapping(value="/acceptReturnReq")
+    @ResponseBody
+    public void acceptReturnRequests(@RequestParam int buid) throws IOException {
+        System.out.println("Request Accepted");
+        recordService.acceptReturnRequest(buid);
+
+    }
 
 
 	@RequestMapping(value = "/returnbook", method = RequestMethod.POST)

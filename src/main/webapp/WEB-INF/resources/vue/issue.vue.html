@@ -87,15 +87,12 @@ window['issue'] = {
 				})
 		},
 		acceptReq: function(buid){
-			
 			this.$api({
 				url:"/acceptReq?buid=" + buid,
 				success: function(res){
 					 this.rows =res; 
 				}
 			})
-			
-			
 		}
 		
 	}
