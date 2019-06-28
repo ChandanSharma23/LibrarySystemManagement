@@ -34,9 +34,35 @@ public class User {
     public User() {
 		
 	}
-	
-	
-	public int getId() {
+
+	@JsonIgnore
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", roll=" + roll +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
+
+    public User(String name, int roll, String password, String role) {
+        this.name = name;
+        this.roll = roll;
+        this.password = password;
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public int getId() {
 		return id;
 	}
 
@@ -76,20 +102,7 @@ public class User {
 	}
 
 
-	@JsonIgnore
-	public User(int id, String name, int roll, String password) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.roll = roll;
-		this.password = password;
-	}
 
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", roll=" + roll + ", password=" + password + "]";
-	}
 	
 	
 

@@ -34,24 +34,31 @@ text-align:center;
     </nav>
 </div>
 <div style="margin-top: 40px">
-	<div class="mess">${message}</div>
-		<div id="login" style="display: block" class="container">
+	<c:if test="${message}!=null"><div class="form-control" style="background-color: indianred">${message}</div></c:if>
+		<div id="login" style="display: block" class="container" >
+
+            <div style="display: flex">
+            <button class="btn btn primary" style="width: 40%;background-color: burlywood"
+            onclick="showRoll()">Student</button>
+            <button class="btn btn primary" style="width: 40%; margin-left: 70px;background-color: cadetblue"
+            onclick="hideRoll()"> Admin</button>
+            </div>
 	
 	<form:form method="POST" action="dashBoard" style="top: 50px !important; " modelAttribute="user">
 			
-			<div class="form-group">
-			RollNumber:
+			<div class="form-group" id ="rollnumber" style="margin-top: 50px">
+			<label>RollNumber</label>
 				<form:input path="roll" type="number" class="form-control" required="required"/>
 			</div>
 			
 			<div class="form-group">
-			Password: 
+                <label>Password: </label>
 			<form:input path="password" type="password" class="form-control" required="required" />
 			</div>
-			<input type="submit" value="login" class="btn btn-default" />
+			<input class="btn btn-success" style="width: 100%" type="submit" value="login" class="btn btn-default" />
 		</form:form>
 		<br> No account yet ? click ->
-		<button onclick="showSignUp()">Sign up</button>
+		<button class="btn btn-primary" onclick="showSignUp()">Sign up</button>
 		to register.
 	</div>
 
@@ -62,22 +69,22 @@ text-align:center;
 	<form:form method="POST" action="save" modelAttribute="user">
 	
 	<div class="form-group">
-	Name:
+        <label>Name:</label>
 			<form:input path="name" type="text" class="form-control" required="required" />
 	</div>
 	
 	<div class="form-group">
-	 Password:
+        <label> Password:</label>
 		<form:input path="password" type ="password" class="form-control" required="required"/>
 	</div>
 	
 	<div class="form-group">
-	Roll no:
+        <label>Roll no:</label>
 		<form:input path="roll" type="number" class="form-control" required="required" />
 	</div>
-	<input type="submit" value="save" />
+	<input class="btn btn-success" type="submit" value="save" />
 	
-	<button onclick="showlogin()">already registered?click here to
+	<button onclick="showlogin()" class="btn btn-primary">already registered?click here to
 		login here</button>
 	</form:form>
 	</div>
@@ -97,6 +104,19 @@ text-align:center;
 		div.style.display = 'block';
 		div2.style.display = 'none';
 	};
+
+	function hideRoll(){
+	    debugger
+        var div  = document.getElementById("rollnumber");
+        var el = document.getElementById("roll")
+        el.innerText =0;
+        div.style.display = "none";
+    }
+    function showRoll(){
+	    debugger
+        var div  = document.getElementById("rollnumber");
+        div.style.display = "block";
+    }
 </script>
 </body>
 </html>
