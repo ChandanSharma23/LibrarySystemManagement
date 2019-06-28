@@ -69,16 +69,27 @@
 
 	<modal v-if="showBookModal" :dismissible="false"
 		:title="isNewBook?'Add New Book':'Update Book'">
+	<div class="form-group">
 	<div>
-		Name: <input type="text" name="name" v-model="temprow.name"
-			
-						:disabled="!isNewBook" > <br>
-		Author <input type= "text" name="author" v-model="temprow.author"
-		 :disabled="!isNewBook"> <br>
-		Publisher <input type="text" name="publisher"
+		<label>Name</label>
+	 	<input class="form-control"type="text" name="name" v-model="temprow.name"	
+						:disabled="!isNewBook" >
+	</div>
+	<div>
+	<label>Author</label>
+		 <input class="form-control" type= "text" name="author" v-model="temprow.author"
+		 :disabled="!isNewBook">
+	</div>
+	<div>
+		<label>Publisher</label>
+		 <input class="form-control" type="text" name="publisher"
 			v-model="temprow.publisher"  :disabled="!isNewBook">
-		Count <input type="text" name="copiesOwned"
+</div>			
+		<div>	
+		<label>Count</label>
+		 <input class="form-control" type="text" name="copiesOwned"
 			v-model="temprow.copiesOwned">
+	</div>
 	</div>
 	<div slot="footer">
 		<button @click="isNewBook = false;showBookModal = false" class="btn btn-default">back</button>

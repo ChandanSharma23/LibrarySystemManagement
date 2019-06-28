@@ -55,7 +55,7 @@
 					<td>{{row.author}}</td>
 					<td>{{row.publisher}}</td>
 					<td><button class="btn btn-primary"
-                            @click = "acceptReq(row.buid)">Approve Request</button></td>
+                            @click = "temprow=row ">Approve Request</button></td>
 				</tr>
 			</tbody>
 		</table>
@@ -63,14 +63,32 @@
 
 
 
+    <modal v-if="temprow" :dismissible="false" title="Confirmation">
+
+        <div class="form-group">
+            <div>
+                <label >Roll Number</label>
+                <input class="form-control" type="text" name="name" v-model="temprow.rollNumber" disabled>
+            </div>
+            <div><label >Author</label>
+                <input class="form-control" type="text" name="author" v-model="temprow.bookName" disabled>
+            </div>
+
+        </div>
+        <div slot="footer">
+            <button @click="temprow = null" class="btn btn-default">Cancel</button>
+            <button
+                    @click="acceptReq(temprow.buid)" class="btn btn-success ">Create Reequest</button>
+        </div>
+    </modal>
 
 </div>
 <script>
 window['issue'] = {
 		data: function(){
 			return{
-				rows: null
-				
+				rows: null,
+				temprow: null
 			}
 			},
 	created: function() {
@@ -86,13 +104,16 @@ window['issue'] = {
 					}
 				})
 		},
-		acceptReq: function(buid){
+		acceptReq: function(buid,UID){
+			debugger;
 			this.$api({
 				url:"/acceptReq?buid=" + buid,
 				success: function(res){
 					 this.rows =res; 
 				}
 			})
+			this.temprow = null;
+			this.loadIssueReq();
 		}
 		
 	}

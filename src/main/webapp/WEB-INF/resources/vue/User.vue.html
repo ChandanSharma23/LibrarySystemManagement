@@ -69,15 +69,20 @@
     <modal v-if="temprow" :dismissible="false"
            title="Are you sure you want to return this book'">
         <div>
-            Name: <input type="text" name="name" v-model="temprow.name"
-
-                         :disabled="!isNewBook" > <br>
-            Author <input type= "text" name="author" v-model="temprow.author"
-                          :disabled="!isNewBook"> <br>
-            Publisher <input type="text" name="publisher"
-                             v-model="temprow.publisher"  :disabled="!isNewBook">
-            Count <input type="text" name="copiesOwned"
-                         v-model="temprow.copiesOwned">
+        <div>
+           <label> Name: </label>
+           <input class="form-control" type="text" name="name" v-model="temprow.bookName" disabled >
+           </div>
+           <div>
+            <label>Author </label>
+            <input class="form-control" type= "text" name="author" v-model="temprow.author"
+                          disabled> 
+            </div>
+            <div>
+            <label>Publisher </label>
+            <input class="form-control"  type="text" name="publisher"
+                             v-model="temprow.publisher"  disabled>
+           </div>
         </div>
         <div slot="footer">
             <button @click="temprow = null" class="btn btn-default">back</button>
@@ -120,8 +125,9 @@ window['User'] = {
 							}
 					
 		        })
+		        debugger;
             this.LoadData();
-            this.temprow;
+            this.temprow=null;
 
 			}
 		
