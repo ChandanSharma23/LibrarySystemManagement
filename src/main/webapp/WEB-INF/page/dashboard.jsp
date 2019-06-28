@@ -7,7 +7,8 @@
 
 <script> var contextPath = "${pageContext.request.contextPath}/"</script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script> var user = "${user}"</script>
+    <script> var role = "${user.role}"
+    console.log(user)</script>
 
 <script src="https://npmcdn.com/vue-router/dist/vue-router.js"></script>
 <script src="<c:url value="/resources/loadVueComponent.js"/>"></script>
@@ -78,9 +79,9 @@
      style="margin-top: -21px;">
     <button class="tablinks" @click="switchUI('User')" >User</button>
     <button class="tablinks" @click="switchUI('borrow')" target=>Borrow</button>
-    <button class="tablinks" @click="switchUI('admin')" v-if="user.role=='ADMIN'" >add or delete books</button>
-    <button class="tablinks" @click="switchUI('issue')" v-if="user.role=='ADMIN'">Issue Request</button>
-    <button class="tablinks" @click="switchUI('return')" v-if="user.role=='ADMIN'">return Request</button>
+    <button class="tablinks" @click="switchUI('admin')" v-if="role=='ADMIN'" >add or delete books</button>
+    <button class="tablinks" @click="switchUI('issue')" v-if="role=='ADMIN'">Issue Request</button>
+    <button class="tablinks" @click="switchUI('return')" v-if="role=='ADMIN'">return Request</button>
 </div>
 <div style="margin-top: 50px; top: 30px  !important;">
 
