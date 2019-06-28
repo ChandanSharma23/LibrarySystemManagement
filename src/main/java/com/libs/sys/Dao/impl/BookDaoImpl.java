@@ -42,7 +42,7 @@ public class BookDaoImpl implements BookDao {
 			session.getTransaction().rollback();
 		}
 		finally {
-			session.close();
+			session.close();}
 	}
 
 	
